@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCube CAM — Diagnostika dopravních pásů | REMA TIP TOP</title>
+<meta name="description" content="AI diagnostika dopravních pásů. Natočte pás mobilem, zprávu dostanete do 5 dnů. První diagnostika zdarma. REMA TIP TOP INCO CZ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        'rtt-black': '#1a1a18',
+        'rtt-red': '#ef232a',
+        'rtt-dark-gray': '#494948',
+        'rtt-medium-gray': '#919292',
+        'rtt-green': '#00A983',
+        'rtt-blue': '#10BAE7',
+        'rtt-yellow': '#FFCC00',
+      },
+      fontFamily: {
+        display: ['Barlow Condensed', 'Arial', 'sans-serif'],
+        body: ['Barlow', 'Arial', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+html { scroll-behavior: smooth; }
+body { font-family: 'Barlow', Arial, sans-serif; color: #1a1a18; }
+.font-display { font-family: 'Barlow Condensed', Arial, sans-serif; }
+.noise-overlay { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); }
+.carousel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-slide { flex: 0 0 85%; scroll-snap-align: center; }
+@media(min-width:768px) { .carousel-slide { flex: 0 0 60%; } }
+.form-field { transition: border-color 0.2s; }
+.form-field:focus { border-color: #ef232a; outline: none; box-shadow: 0 0 0 3px rgba(239,35,42,0.1); }
+.sticky-cta { transform: translateY(100%); transition: transform 0.3s ease; }
+.sticky-cta.visible { transform: translateY(0); }
+@keyframes fadeInUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+.animate-in { animation: fadeInUp 0.6s ease forwards; }
+</style>
+</head>
+<body class="bg-white">
+
+<!-- STICKY NAV -->
+<header id="nav" class="fixed top-0 w-full z-50 bg-rtt-black/95 backdrop-blur-sm border-b border-white/10">
+  <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span class="font-display text-white font-bold text-lg tracking-wide">REMA TIP TOP</span>
+      <span class="text-rtt-medium-gray text-xs hidden sm:block">// MCube CAM</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="#pricing" class="text-rtt-medium-gray text-sm hover:text-white transition hidden sm:block">Ceník</a>
+      <a href="#form" class="bg-rtt-red text-white px-5 py-2 text-sm font-semibold hover:bg-red-700 transition">Chci diagnostiku</a>
+    </div>
+  </div>
+</header>
+
+<!-- SECTION 1: HERO -->
+<section id="hero" class="bg-rtt-black noise-overlay pt-20 pb-16 md:pt-28 md:pb-20 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4 md:px-8">
+    <div class="md:flex md:items-center md:gap-12">
+      <!-- Image first on mobile -->
+      <div class="md:hidden mb-8">
+        <div class="rounded-lg overflow-hidden border-2 border-white/20 shadow-2xl">
+          <img src="news_mcube_cam.webp" alt="Smartphone na stativu filmuje dopravní pás přes inspekční otvor" class="w-full" loading="eager">
+        </div>
+      </div>
+      <!-- Text -->
+      <div class="md:w-3/5">
+        <h1 class="font-display font-extrabold text-4xl md:text-6xl lg:text-7xl text-white uppercase leading-none mb-6 tracking-tight">
+          Znáte stav<br>vašich pásů?
+        </h1>
+        <p class="text-white/80 text-lg md:text-xl leading-relaxed mb-8 max-w-xl">
+          Natočte pás mobilem. Umělá inteligence vyhodnotí poškození, která pouhým okem neuvidíte. Zprávu s&nbsp;mapou defektů dostanete do&nbsp;5&nbsp;pracovních dnů. <strong class="text-white">První diagnostika zdarma.</strong>
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 items-start">
+          <a href="#form" class="bg-rtt-red hover:bg-red-700 text-white px-8 py-4 font-bold text-lg transition inline-block">
+            Chci bezplatnou diagnostiku
+          </a>
+          <a href="#pricing" class="text-white/60 hover:text-white underline underline-offset-4 py-4 text-sm transition">
+            Stáhnout ceník (PDF) ↓
+          </a>
+        </div>
+      </div>
+      <!-- Image desktop -->
+      <div class="hidden md:block md:w-2/5">
+        <div class="rounded-lg overflow-hidden border-2 border-white/20 shadow-2xl transform rotate-1 hover:rotate-0 transition-transform duration-500">
+          <img src="news_mcube_cam.webp" alt="Smartphone na stativu filmuje dopravní pás" class="w-full" loading="eager">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="bg-rtt-dark-gray py-3 border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-4 flex items-center justify-center gap-3 text-rtt-medium-gray text-xs md:text-sm text-center">
+    <span class="font-display font-bold text-white text-sm">REMA TIP TOP</span>
+    <span class="hidden sm:inline">—</span>
+    <span>Přes 100 let zkušeností v údržbě dopravníkových systémů</span>
+    <span class="hidden md:inline">|</span>
+    <span class="hidden md:inline">Pobočky v Brně a Praze</span>
+  </div>
+</div>
+
+<!-- SECTION 2: PROBLEM vs SOLUTION -->
+<section id="problem" class="py-16 md:py-24 bg-white">
+  <div class="max-w-5xl mx-auto px-4 md:px-8">
+    <h2 class="font-display font-bold text-2xl md:text-4xl text-rtt-black mb-12 text-center">
+      Jak dnes probíhá kontrola pásů — a&nbsp;jak může
+    </h2>
+    
+    <!-- Comparison Table -->
+    <div class="grid md:grid-cols-2 gap-0 mb-16 border border-gray-200 rounded-lg overflow-hidden">
+      <!-- Headers -->
+      <div class="bg-rtt-red/10 p-4 border-b border-gray-200 md:border-r">
+        <h3 class="font-display font-bold text-lg text-rtt-red">Běžná praxe</h3>
+      </div>
+      <div class="bg-rtt-green/10 p-4 border-b border-gray-200">
+        <h3 class="font-display font-bold text-lg text-rtt-green">S MCube CAM</h3>
+      </div>
+      <!-- Rows -->
+      <div class="p-4 border-b border-gray-200 md:border-r text-rtt-dark-gray">Vizuální kontrola pochůzkou</div>
+      <div class="p-4 border-b border-gray-200 font-medium">Videozáznam z mobilu + AI analýza</div>
+      
+      <div class="p-4 border-b border-gray-200 md:border-r text-rtt-dark-gray">Subjektivní posouzení bez záznamu</div>
+      <div class="p-4 border-b border-gray-200 font-medium">Objektivní hodnocení se stupněm závažnosti</div>
+      
+      <div class="p-4 border-b border-gray-200 md:border-r text-rtt-dark-gray">Výsledky nikde nezaznamenané</div>
+      <div class="p-4 border-b border-gray-200 font-medium">Podrobná zpráva s fotografiemi a polohou defektů</div>
+      
+      <div class="p-4 md:border-r text-rtt-dark-gray">Žádná historie, žádné trendy</div>
+      <div class="p-4 font-medium">Možnost porovnání stavu v čase</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="text-center md:text-left">
+        <p class="font-display font-bold text-xl md:text-2xl text-rtt-black mb-2">Neodhalit poškození včas stojí řádově statisíce.</p>
+      </div>
+      <div class="text-center md:text-left">
+        <p class="font-display font-bold text-xl md:text-2xl text-rtt-black mb-2">Jedna havárie spoje zastaví výrobu na hodiny až dny.</p>
+      </div>
+      <div class="text-center md:text-left">
+        <p class="font-display font-bold text-xl md:text-2xl text-rtt-black mb-2">Většina poškození vzniká postupně — a je viditelná na záznamu dřív než okem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: HOW IT WORKS -->
+<section id="process" class="py-16 md:py-24 bg-gray-50">
+  <div class="max-w-5xl mx-auto px-4 md:px-8">
+    <h2 class="font-display font-bold text-2xl md:text-4xl text-rtt-black mb-4 text-center">Celý postup ve 4 krocích</h2>
+    <div class="flex justify-center mb-12">
+      <span class="bg-rtt-red text-white px-5 py-2 text-sm font-semibold rounded">Zprávu obdržíte do 5 pracovních dnů</span>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-6 mb-16">
+      <!-- Step 1 -->
+      <div class="bg-white rounded-lg p-6 border border-gray-200 hover:border-rtt-red/30 transition">
+        <div class="font-display text-5xl font-extrabold text-rtt-red mb-2">1</div>
+        <h3 class="font-display font-bold text-lg uppercase mb-3">Natočte</h3>
+        <p class="text-rtt-dark-gray text-sm leading-relaxed">Pás natočíte mobilem z inspekčního otvoru nebo během pochůzky. Stačí Full HD, 30 snímků za sekundu a stativ.</p>
+      </div>
+      <!-- Step 2 -->
+      <div class="bg-white rounded-lg p-6 border border-gray-200 hover:border-rtt-red/30 transition">
+        <div class="font-display text-5xl font-extrabold text-rtt-red mb-2">2</div>
+        <h3 class="font-display font-bold text-lg uppercase mb-3">Nahrajte</h3>
+        <p class="text-rtt-dark-gray text-sm leading-relaxed">Video nahrajete přes formulář na této stránce. O vše ostatní se postaráme.</p>
+      </div>
+      <!-- Step 3 -->
+      <div class="bg-white rounded-lg p-6 border border-gray-200 hover:border-rtt-red/30 transition">
+        <div class="font-display text-5xl font-extrabold text-rtt-red mb-2">3</div>
+        <h3 class="font-display font-bold text-lg uppercase mb-3">Vyhodnotíme</h3>
+        <p class="text-rtt-dark-gray text-sm leading-relaxed">Software s umělou inteligencí projde celý záznam a identifikuje spoje, poškození hran, povrchové defekty i anomálie.</p>
+      </div>
+      <!-- Step 4 -->
+      <div class="bg-white rounded-lg p-6 border border-gray-200 hover:border-rtt-red/30 transition">
+        <div class="font-display text-5xl font-extrabold text-rtt-red mb-2">4</div>
+        <h3 class="font-display font-bold text-lg uppercase mb-3">Zpráva</h3>
+        <p class="text-rtt-dark-gray text-sm leading-relaxed">Obdržíte zprávu s kompletní mapou pásu, fotografiemi defektů, hodnocením závažnosti a doporučením dalšího postupu.</p>
+      </div>
+    </div>
+
+    <!-- Filming requirements -->
+    <div class="bg-white rounded-lg p-6 md:p-8 border border-gray-200 max-w-2xl mx-auto">
+      <h3 class="font-display font-bold text-lg mb-4">Co k natáčení potřebujete</h3>
+      <ul class="space-y-2 text-rtt-dark-gray text-sm">
+        <li class="flex items-start gap-2"><span class="text-rtt-green font-bold mt-0.5">✓</span> Mobilní telefon s rozlišením Full HD (1920×1080), 30 snímků/s</li>
+        <li class="flex items-start gap-2"><span class="text-rtt-green font-bold mt-0.5">✓</span> Stativ s držákem na telefon</li>
+        <li class="flex items-start gap-2"><span class="text-rtt-green font-bold mt-0.5">✓</span> Dostatečné osvětlení (závisí na podmínkách na místě)</li>
+        <li class="flex items-start gap-2"><span class="text-rtt-green font-bold mt-0.5">✓</span> Znalost rychlosti pásu (m/s)</li>
+        <li class="flex items-start gap-2"><span class="text-rtt-green font-bold mt-0.5">✓</span> Značku na pásu pro identifikaci jednoho oběhu</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: SAMPLE REPORT -->
+<section id="report" class="py-16 md:py-24 bg-rtt-black">
+  <div class="max-w-6xl mx-auto px-4 md:px-8">
+    <h2 class="font-display font-bold text-2xl md:text-4xl text-white mb-4 text-center">Jak vypadá výstup</h2>
+    <p class="text-white/70 text-center mb-10 max-w-2xl mx-auto">
+      Každá zpráva obsahuje kompletní mapu pásu s vyznačením všech nalezených událostí — spojů, poškození povrchu, poškození hran a anomálií. U každého nálezu uvádíme metrovou polohu na pásu, fotografii ve vysokém rozlišení a stupeň závažnosti.
+    </p>
+
+    <!-- Report Carousel -->
+    <div class="carousel-track gap-4 pb-4 mb-8">
+      <div class="carousel-slide">
+        <img src="report_sample_beltmap_start.png" alt="Mapa pásu — detekce spojky a prvních defektů" class="rounded-lg shadow-2xl w-full">
+        <p class="text-white/50 text-sm text-center mt-3">Mapa pásu — detekce spojky a defektů (0–25 m)</p>
+      </div>
+      <div class="carousel-slide">
+        <img src="report_sample_beltmap_critical.png" alt="Kritická zóna s vysokou hustotou povrchového poškození" class="rounded-lg shadow-2xl w-full">
+        <p class="text-white/50 text-sm text-center mt-3">Kritická zóna — vysoká hustota poškození (145–164 m)</p>
+      </div>
+      <div class="carousel-slide">
+        <img src="report_sample_summary.png" alt="AI souhrn identifikovaných událostí" class="rounded-lg shadow-2xl w-full">
+        <p class="text-white/50 text-sm text-center mt-3">AI souhrn — 115 událostí ve 4 kategoriích</p>
+      </div>
+      <div class="carousel-slide">
+        <img src="report_sample_cover.png" alt="Titulní strana zprávy MCube CAM" class="rounded-lg shadow-2xl w-full">
+        <p class="text-white/50 text-sm text-center mt-3">Titulní strana zprávy</p>
+      </div>
+    </div>
+    <p class="text-white/40 text-xs text-center mb-8">← Přejeďte pro další stránky →</p>
+
+    <div class="text-center">
+      <p class="text-white text-lg mb-4">Takovou zprávu vám zpracujeme zdarma. Stačí nahrát video.</p>
+      <a href="#form" class="bg-rtt-red hover:bg-red-700 text-white px-8 py-4 font-bold text-lg transition inline-block">
+        Chci bezplatnou diagnostiku
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: LEAD CAPTURE FORM -->
+<section id="form" class="py-16 md:py-24 bg-white">
+  <div class="max-w-3xl mx-auto px-4 md:px-8">
+    <h2 class="font-display font-bold text-2xl md:text-4xl text-rtt-black mb-10 text-center">Objednat diagnostiku</h2>
+
+    <!-- Two path cards -->
+    <div class="grid md:grid-cols-2 gap-4 mb-8">
+      <button onclick="showForm('video')" id="btn-video" class="path-btn border-2 border-rtt-red bg-rtt-red/5 rounded-lg p-6 text-left hover:bg-rtt-red/10 transition cursor-pointer">
+        <div class="text-3xl mb-2">📹</div>
+        <h3 class="font-display font-bold text-lg mb-1">Nahraji video sám/sama</h3>
+        <p class="text-rtt-dark-gray text-sm">Natočím pás a nahraji video přes formulář.</p>
+      </button>
+      <button onclick="showForm('technician')" id="btn-tech" class="path-btn border-2 border-gray-200 rounded-lg p-6 text-left hover:border-rtt-dark-gray/40 transition cursor-pointer">
+        <div class="text-3xl mb-2">👷</div>
+        <h3 class="font-display font-bold text-lg mb-1">Chci návštěvu technika</h3>
+        <p class="text-rtt-dark-gray text-sm">Nemůžete natočit video sami? Přijedeme k vám.</p>
+      </button>
+    </div>
+
+    <!-- VIDEO UPLOAD FORM -->
+    <form id="form-video" class="space-y-8" onsubmit="handleSubmit(event, 'video_upload')">
+      <!-- About you -->
+      <div>
+        <h3 class="font-display font-bold text-lg mb-4 text-rtt-black">O vás</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <input type="text" name="name" required placeholder="Jméno a příjmení *" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+          <input type="text" name="company" required placeholder="Společnost *" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+          <input type="email" name="email" required placeholder="E-mail *" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+          <input type="tel" name="phone" required placeholder="Telefon *" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+          <input type="text" name="location" required placeholder="Lokalita / závod *" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm md:col-span-2">
+        </div>
+      </div>
+
+      <!-- About the belt -->
+      <div>
+        <h3 class="font-display font-bold text-lg mb-2 text-rtt-black">O pásu</h3>
+        <p class="text-rtt-medium-gray text-sm italic mb-4">Nemáte všechny údaje po ruce? Vyplňte, co znáte — zbytek doplníme při krátkém telefonátu.</p>
+        <div class="grid md:grid-cols-2 gap-4">
+          <input type="text" name="conveyorId" placeholder='Název / ID dopravníku * (např. "Pás č. 3")' required class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+          <input type="text" name="beltLocation" placeholder="Umístění pásu *" required class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+          <div>
+            <input type="number" step="0.01" name="beltSpeed" placeholder="Rychlost pásu (m/s) *" required class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+            <p class="text-xs text-rtt-medium-gray mt-1">Najdete v dokumentaci nebo na štítku pohonu.</p>
+          </div>
+          <input type="number" name="beltWidth" placeholder="Šířka pásu (mm) *" required class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+          <input type="number" name="beltLength" placeholder="Délka pásu (m) *" required class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+          <textarea name="notes" placeholder="Poznámky — stáří pásu, známé problémy, typ materiálu..." rows="3" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm md:col-span-2"></textarea>
+        </div>
+      </div>
+
+      <!-- Video Upload -->
+      <div>
+        <h3 class="font-display font-bold text-lg mb-4 text-rtt-black">Video</h3>
+        <label class="border-2 border-dashed border-gray-300 rounded-lg p-8 flex flex-col items-center justify-center cursor-pointer hover:border-rtt-red/50 transition bg-gray-50">
+          <div class="text-4xl mb-2">📁</div>
+          <p class="font-medium mb-1">Přetáhněte video sem nebo klikněte pro výběr souboru</p>
+          <p class="text-rtt-medium-gray text-sm">Přijímáme .mp4 a .mov do 5 GB</p>
+          <input type="file" accept="video/mp4,video/quicktime,video/*" capture="environment" class="hidden" id="video-input" onchange="handleFileSelect(this)">
+        </label>
+        <div id="file-info" class="hidden mt-3 p-3 bg-rtt-green/10 rounded flex items-center gap-2 text-sm">
+          <span class="text-rtt-green font-bold">✓</span>
+          <span id="file-name"></span>
+          <span id="file-size" class="text-rtt-medium-gray"></span>
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-rtt-red hover:bg-red-700 text-white py-4 font-bold text-lg transition rounded">
+        Odeslat a získat diagnostiku zdarma
+      </button>
+      <p class="text-rtt-medium-gray text-sm text-center">
+        Žádné skryté poplatky, žádné automatické objednávky. Zprávu dostanete a rozhodnutí je na vás.
+      </p>
+    </form>
+
+    <!-- TECHNICIAN VISIT FORM -->
+    <form id="form-technician" class="space-y-6 hidden" onsubmit="handleSubmit(event, 'technician_visit')">
+      <div class="grid md:grid-cols-2 gap-4">
+        <input type="text" name="name" required placeholder="Jméno a příjmení *" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+        <input type="text" name="company" required placeholder="Společnost *" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+        <input type="email" name="email" required placeholder="E-mail *" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+        <input type="tel" name="phone" required placeholder="Telefon *" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+        <input type="text" name="location" required placeholder="Lokalita / závod *" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+        <input type="text" name="preferredDate" placeholder="Preferovaný termín návštěvy" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm">
+      </div>
+      <textarea name="notes" placeholder="Poznámky — kolik pásů, jaký provoz..." rows="3" class="form-field w-full border border-gray-300 rounded px-4 py-3 text-sm"></textarea>
+      <button type="submit" class="w-full bg-rtt-red hover:bg-red-700 text-white py-4 font-bold text-lg transition rounded">
+        Objednat návštěvu technika
+      </button>
+      <p class="text-rtt-medium-gray text-sm text-center">Ozveme se do 1 pracovního dne.</p>
+    </form>
+
+    <!-- SUCCESS MESSAGE -->
+    <div id="form-success" class="hidden text-center py-12">
+      <div class="text-5xl mb-4">✅</div>
+      <h3 class="font-display font-bold text-2xl mb-4">Děkujeme!</h3>
+      <p class="text-rtt-dark-gray text-lg">Vaši poptávku jsme přijali. Ozveme se do 1 pracovního dne.</p>
+      <p class="text-rtt-medium-gray text-sm mt-2">Potvrzení jsme odeslali na váš e-mail.</p>
+    </div>
+
+    <!-- Path B -->
+    <div class="mt-12 pt-8 border-t border-gray-200 text-center">
+      <p class="text-rtt-dark-gray mb-4">Potřebujete nejprve více informací?</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="#pricing" class="border border-rtt-dark-gray text-rtt-dark-gray px-6 py-3 text-sm font-medium hover:bg-gray-50 transition rounded">
+          Stáhnout ceník MCube CAM (PDF)
+        </a>
+        <a href="mailto:michal.feigler@rematiptop.cz?subject=MCube CAM — schůzka" class="border border-rtt-dark-gray text-rtt-dark-gray px-6 py-3 text-sm font-medium hover:bg-gray-50 transition rounded">
+          Domluvit osobní schůzku
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: PRICING -->
+<section id="pricing" class="py-16 md:py-24 bg-gray-50">
+  <div class="max-w-3xl mx-auto px-4 md:px-8">
+    <h2 class="font-display font-bold text-2xl md:text-4xl text-rtt-black mb-2 text-center">Kolik diagnostika stojí</h2>
+    <p class="text-rtt-dark-gray text-center mb-10">Ceník uvádíme otevřeně. Žádné „napište nám pro cenovou nabídku."</p>
+
+    <div class="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm mb-10">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-rtt-black text-white">
+            <th class="text-left px-6 py-4 font-display font-bold">Délka pásu</th>
+            <th class="text-right px-6 py-4 font-display font-bold">Cena diagnostiky</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100"><td class="px-6 py-3">0 – 500 m</td><td class="px-6 py-3 text-right font-semibold">350 €</td></tr>
+          <tr class="border-b border-gray-100 bg-gray-50"><td class="px-6 py-3">501 – 1 000 m</td><td class="px-6 py-3 text-right font-semibold">600 €</td></tr>
+          <tr class="border-b border-gray-100"><td class="px-6 py-3">1 001 – 2 000 m</td><td class="px-6 py-3 text-right font-semibold">1 100 €</td></tr>
+          <tr class="border-b border-gray-100 bg-gray-50"><td class="px-6 py-3">2 001 – 3 000 m</td><td class="px-6 py-3 text-right font-semibold">1 600 €</td></tr>
+          <tr class="border-b border-gray-100"><td class="px-6 py-3">3 001 – 5 000 m</td><td class="px-6 py-3 text-right font-semibold">2 600 €</td></tr>
+          <tr><td class="px-6 py-3 italic text-rtt-medium-gray">> 5 000 m</td><td class="px-6 py-3 text-right italic text-rtt-medium-gray">Na dotaz</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Commercial points -->
+    <div class="space-y-4">
+      <div class="bg-white rounded-lg p-5 border-l-4 border-rtt-green border border-gray-200">
+        <h4 class="font-bold mb-1">První diagnostika zdarma.</h4>
+        <p class="text-rtt-dark-gray text-sm">Bez závazků. Chceme, abyste viděli kvalitu zprávy, než se rozhodnete.</p>
+      </div>
+      <div class="bg-white rounded-lg p-5 border-l-4 border-rtt-blue border border-gray-200">
+        <h4 class="font-bold mb-1">Cena diagnostiky se odečítá při objednávce opravy.</h4>
+        <p class="text-rtt-dark-gray text-sm">Ke každé zprávě přikládáme konkrétní nabídku na opravu zjištěných závad. Pokud opravu objednáte u nás, cena diagnostiky se vám vrátí.</p>
+      </div>
+      <div class="bg-white rounded-lg p-5 border-l-4 border-rtt-yellow border border-gray-200">
+        <h4 class="font-bold mb-1">Pravidelný monitoring za zvýhodněnou cenu.</h4>
+        <p class="text-rtt-dark-gray text-sm">Nabízíme roční programy s 2–4 diagnostikami ročně. Sledujte vývoj stavu pásů a plánujte údržbu na základě dat, ne odhadů.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7: VALUE PROPOSITION -->
+<section id="benefits" class="py-16 md:py-24 bg-white">
+  <div class="max-w-5xl mx-auto px-4 md:px-8">
+    <h2 class="font-display font-bold text-2xl md:text-4xl text-rtt-black mb-12 text-center">Co vám MCube CAM přinese</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
+        <div class="text-2xl mb-3">🛡️</div>
+        <h3 class="font-bold mb-2">Méně neplánovaných odstávek</h3>
+        <p class="text-rtt-dark-gray text-sm">Odhalíte poškození dřív, než způsobí výpadek. I jeden odvrácený prostoj ochrání výrobu a zisk.</p>
+      </div>
+      <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
+        <div class="text-2xl mb-3">🔍</div>
+        <h3 class="font-bold mb-2">Přehled o stavu celého pásu</h3>
+        <p class="text-rtt-dark-gray text-sm">Kompletní mapa pásu metr po metru. Žádné skryté závady.</p>
+      </div>
+      <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
+        <div class="text-2xl mb-3">⏱️</div>
+        <h3 class="font-bold mb-2">Úspora času při kontrolách</h3>
+        <p class="text-rtt-dark-gray text-sm">Nahraďte opakované pochůzky jedním natočením. Uvolněte údržbáře pro důležitější práci.</p>
+      </div>
+      <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
+        <div class="text-2xl mb-3">⛑️</div>
+        <h3 class="font-bold mb-2">Bezpečnější provoz</h3>
+        <p class="text-rtt-dark-gray text-sm">Odhalte problémy v uzavřených nebo těžko přístupných úsecích bez nutnosti vstupu.</p>
+      </div>
+      <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
+        <div class="text-2xl mb-3">📋</div>
+        <h3 class="font-bold mb-2">Dokumentace pro audity</h3>
+        <p class="text-rtt-dark-gray text-sm">Objektivní zprávy s fotografiemi a hodnocením. Splňte požadavky na evidenci stavu zařízení.</p>
+      </div>
+      <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
+        <div class="text-2xl mb-3">📈</div>
+        <h3 class="font-bold mb-2">Rychlá návratnost</h3>
+        <p class="text-rtt-dark-gray text-sm">Stojí méně než jedna hodina neplánované odstávky. A ta zpráva vám řekne přesně, co opravit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8: TRUST SIGNALS -->
+<section id="trust" class="py-16 md:py-20 bg-rtt-dark-gray">
+  <div class="max-w-3xl mx-auto px-4 md:px-8 text-center">
+    <h2 class="font-display font-bold text-2xl md:text-3xl text-white mb-8">Proč REMA TIP TOP</h2>
+    <p class="text-rtt-medium-gray mb-4">Součást skupiny <span class="text-white font-medium">REMA TIP TOP</span> — globální lídr v údržbě a servisu dopravníkových systémů s více než 100letou tradicí.</p>
+    <p class="text-rtt-medium-gray mb-4"><span class="text-white font-medium">MCube CAM</span> je součástí portfolia MCube, které zahrnuje systémy pro měření tloušťky pásu (BTM), detekci trhlin (BRD 2), skener ocelových lan (SCS) a predikci poruch (RFP).</p>
+    <p class="text-rtt-medium-gray mb-4">Pobočky v Česku: <span class="text-white">Brno</span> · Praha · Dvůr Králové nad Labem · Strakonice</p>
+    <p class="text-rtt-medium-gray text-sm mt-8 border-t border-white/10 pt-6">Vaše data zpracováváme na serverech v EU v souladu s GDPR. Videa slouží výhradně k diagnostice vašeho pásu a nejsou sdílena s třetími stranami.</p>
+  </div>
+</section>
+
+<!-- SECTION 9: FOOTER -->
+<footer class="bg-rtt-black py-10">
+  <div class="max-w-5xl mx-auto px-4 md:px-8">
+    <div class="md:flex md:justify-between md:items-start gap-8">
+      <div class="mb-6 md:mb-0">
+        <div class="font-display font-bold text-white text-lg mb-2">REMA TIP TOP INCO — CZ</div>
+        <p class="text-rtt-medium-gray text-sm">spol. s r.o.</p>
+        <p class="text-rtt-medium-gray text-sm">Vídeňská 110, Brno</p>
+      </div>
+      <div class="mb-6 md:mb-0">
+        <p class="text-white text-sm font-medium mb-1">MCube CAM kontakt</p>
+        <p class="text-rtt-medium-gray text-sm">
+          <a href="tel:+420724090425" class="hover:text-white transition">+420 724 090 425</a>
+        </p>
+        <p class="text-rtt-medium-gray text-sm">
+          <a href="mailto:michal.feigler@rematiptop.cz" class="hover:text-white transition">michal.feigler@rematiptop.cz</a>
+        </p>
+      </div>
+      <div>
+        <p class="text-rtt-medium-gray text-sm">
+          <a href="https://rema-tiptop.de" target="_blank" class="hover:text-white transition">rema-tiptop.de</a> · 
+          <a href="https://pogumovani.cz" target="_blank" class="hover:text-white transition">pogumovani.cz</a>
+        </p>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-8 pt-6 text-rtt-medium-gray text-xs text-center">
+      © 2026 REMA TIP TOP INCO — CZ spol. s r.o. Všechna práva vyhrazena.
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div id="sticky-cta" class="sticky-cta fixed bottom-0 left-0 right-0 bg-rtt-black/95 backdrop-blur-sm py-3 px-4 z-40 md:hidden border-t border-white/10">
+  <a href="#form" class="block w-full bg-rtt-red text-white text-center py-3 font-bold text-sm rounded">
+    Chci bezplatnou diagnostiku
+  </a>
+</div>
+
+<script>
+// Form path switching
+function showForm(type) {
+  const videoForm = document.getElementById('form-video');
+  const techForm = document.getElementById('form-technician');
+  const btnVideo = document.getElementById('btn-video');
+  const btnTech = document.getElementById('btn-tech');
+  
+  if (type === 'video') {
+    videoForm.classList.remove('hidden');
+    techForm.classList.add('hidden');
+    btnVideo.classList.add('border-rtt-red', 'bg-rtt-red/5');
+    btnVideo.classList.remove('border-gray-200');
+    btnTech.classList.remove('border-rtt-red', 'bg-rtt-red/5');
+    btnTech.classList.add('border-gray-200');
+  } else {
+    videoForm.classList.add('hidden');
+    techForm.classList.remove('hidden');
+    btnTech.classList.add('border-rtt-red', 'bg-rtt-red/5');
+    btnTech.classList.remove('border-gray-200');
+    btnVideo.classList.remove('border-rtt-red', 'bg-rtt-red/5');
+    btnVideo.classList.add('border-gray-200');
+  }
+}
+
+// File upload handling
+function handleFileSelect(input) {
+  const file = input.files[0];
+  if (file) {
+    document.getElementById('file-info').classList.remove('hidden');
+    document.getElementById('file-name').textContent = file.name;
+    document.getElementById('file-size').textContent = '(' + (file.size / (1024*1024)).toFixed(1) + ' MB)';
+  }
+}
+
+// Form submission
+async function handleSubmit(e, formType) {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData);
+  data.formType = formType;
+  data.timestamp = new Date().toISOString();
+
+  // TODO: Replace with your Google Apps Script web app URL
+  const WEBHOOK_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+  
+  try {
+    // For now, just show success (replace with actual fetch when webhook is deployed)
+    // await fetch(WEBHOOK_URL, { method: 'POST', body: JSON.stringify(data) });
+    console.log('Form data:', data);
+    
+    document.getElementById('form-video').classList.add('hidden');
+    document.getElementById('form-technician').classList.add('hidden');
+    document.getElementById('form-success').classList.remove('hidden');
+    document.querySelector('.path-btn')?.closest('.grid')?.classList.add('hidden');
+  } catch(err) {
+    alert('Chyba při odesílání. Zkuste to prosím znovu nebo nás kontaktujte na +420 724 090 425.');
+  }
+}
+
+// Sticky CTA visibility
+const heroSection = document.getElementById('hero');
+const formSection = document.getElementById('form');
+const stickyCta = document.getElementById('sticky-cta');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.target === heroSection) {
+      if (!entry.isIntersecting) {
+        stickyCta.classList.add('visible');
+      } else {
+        stickyCta.classList.remove('visible');
+      }
+    }
+    if (entry.target === formSection && entry.isIntersecting) {
+      stickyCta.classList.remove('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+observer.observe(heroSection);
+observer.observe(formSection);
+</script>
+
+</body>
+</html>
