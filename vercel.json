@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "regions": ["fra1"],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "monitoringpasu(-[a-z0-9-]+)?\\.vercel\\.app" }
+      ],
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "monitoringpasu(-[a-z0-9-]+)?\\.vercel\\.app" }
+      ],
+      "destination": "https://monitoringpasu.cz/$1",
+      "permanent": true
+    }
+  ]
+}
